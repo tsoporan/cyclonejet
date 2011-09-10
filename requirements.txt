@@ -1,0 +1,11 @@
+Flask
+Flask-Admin
+Flask-Actions
+Flask-Auth
+Flask-Redis
+Flask-SQLAlchemy
+Flask-WTF
+Scrapy
+blinker
+simplejson
+bpython
