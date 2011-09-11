@@ -1,13 +1,13 @@
 # -*- encoding:utf-8 -*-
-from flask import Module, url_for, redirect, flash, request, render_template
+from flask import Blueprint, url_for, redirect, flash, request, render_template
 
 from cyclonejet.forms import RegistrationForm
 
-frontend = Module(__name__)
+frontend = Blueprint('frontend', __name__)
 
 @frontend.route('/')
 def index():
-    return "Hello,world"
+    return render_template('index.html')
 
 @frontend.route('/register', methods=['GET', 'POST'])
 def register():
