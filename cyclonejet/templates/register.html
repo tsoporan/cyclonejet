@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <form method="post" action="">
+    {% for field in form %}
+
+        {% if field.name == 'csrf' %}
+        {% else %}
+            {{ field.label }}
+        {% endif %}
+        
+        {{ field }}
+        
+        {% if field.errors %}
+            <ul class='errors'>
+                {% for error in field.errors %}<li>{{ error }}{% endfor %}
+            </ul>
+        {% endif %}
+
+        {% endfor %}
+        <input type="submit" value="Sign up!">
+    </form>
+
+{% endblock %}
