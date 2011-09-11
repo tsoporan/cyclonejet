@@ -34,6 +34,12 @@ class User(db.Model):
         if password:
             return check_password_hash(self.password, password)
 
+    def join_group(self, group):
+        self.groups.append(group)
+
+    def leave_group(self, group):
+        self.groups.remove(group)
+
     def __repr__(self):
         return '<User: %r>' % self.username
 
