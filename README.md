@@ -15,7 +15,7 @@ how to get started
 
 2. ```virtualenv --python=python2.7 --no-site-packages cyclonejet_env```
 
-3. ```git clone git@github.com:tsoporan/cyclonejet.git```
+3. ```cd cyclonejet_env && git clone git@github.com:tsoporan/cyclonejet.git```
 
 4. ```source bin/activate```
 
