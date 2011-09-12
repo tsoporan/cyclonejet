@@ -2,7 +2,6 @@
 from flask import Flask, render_template
 
 from cyclonejet.views.frontend import frontend
-from cyclonejet.views.errors import errors
 
 from flaskext.sqlalchemy import SQLAlchemy
 import settings
@@ -12,7 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = settings.DB_URI
 
 #Blueprint registration
 app.register_blueprint(frontend)
-app.register_blueprint(errors)
 
 #DB intialization
 db = SQLAlchemy(app)
