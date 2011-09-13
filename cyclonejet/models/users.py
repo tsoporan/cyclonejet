@@ -13,14 +13,20 @@ groups = db.Table('groups',
 class UserQuery(BaseQuery):
 
     @staticmethod
-    def create_admin(username='admin', email='admin@cyclonejet.net', password='admin'):
-        user = User.query.filter_by(role=User.ADMIN).first()
+    def create_user(username, email, password, admin=False):
+        if admin:
+            user = User.query.filter_by(role=User.ADMIN).first()
+        else:
+            user = User.query.filter_by(username=username).first()
+        
         if not user:
             user = User(username, email, password)
-            user.role = User.ADMIN
+            if admin:
+                user.role = User.ADMIN
             db.session.add(user)
             db.session.commit()
         return user
+
 
 class User(db.Model):
     # A user.
