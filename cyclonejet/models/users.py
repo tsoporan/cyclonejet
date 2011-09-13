@@ -3,13 +3,32 @@ import datetime
 
 from werkzeug import generate_password_hash, check_password_hash
 
+from flaskext.sqlalchemy import BaseQuery
+
 groups = db.Table('groups', 
         db.Column('group_id', db.Integer, db.ForeignKey('group.id')),
         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
 )
 
+class UserQuery(BaseQuery):
+
+    @staticmethod
+    def create_admin(username='admin', email='admin@cyclonejet.net', password='admin'):
+        user = User.query.filter_by(role=User.ADMIN).first()
+        if not user:
+            user = User(username, email, password)
+            user.role = User.ADMIN
+            db.session.add(user)
+            db.session.commit()
+        return user
+
 class User(db.Model):
     # A user.
+
+    MEMBER = 1
+    ADMIN = 2
+
+    query_class = UserQuery
 
     id = db.Column(db.Integer, primary_key=True)
     
@@ -19,13 +38,16 @@ class User(db.Model):
 
     groups = db.relationship('Group', secondary=groups, backref=db.backref('users'))
 
+    role = db.Column(db.Integer, default=MEMBER)
+
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     profile = db.relationship('Profile', uselist=False, backref='user')
 
-    def __init__(self, username, email):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
+        self.set_password(password)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -39,6 +61,10 @@ class User(db.Model):
 
     def leave_group(self, group):
         self.groups.remove(group)
+
+    def is_admin(self):
+        if self.role == 2:
+            return True
 
     def __repr__(self):
         return '<User: %r>' % self.username
