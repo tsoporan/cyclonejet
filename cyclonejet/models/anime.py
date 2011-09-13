@@ -17,8 +17,10 @@ class Anime(db.Model):
     uploader_id = db.Column(db.Integer, db.ForeignKey(User.id))
     uploader = db.relationship(User, backref='animes')
 
-    def __init__(self, title):
+    def __init__(self, title, description=None):
         self.title = title
+        if description:
+            self.description = description
 
     def __repr__(self):
         return '<Anime: %r>' % self.title
