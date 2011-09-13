@@ -56,6 +56,14 @@ class User(db.Model):
         if password:
             return check_password_hash(self.password, password)
 
+    def change_password(self, new_password, old_password=None):
+        if old_password:
+            if not self.check_password(old_password): 
+                return False
+
+        self.set_password(new_password)
+
+
     def join_group(self, group):
         self.groups.append(group)
 
