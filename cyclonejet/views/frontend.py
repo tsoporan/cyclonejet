@@ -18,6 +18,6 @@ def register():
     if request.method == 'POST' and form.validate():
         User.query_class.create_user(form.username.data, form.email.data, form.password.data)
         flash('Workiez')
-        return redirect(url_for('index'))
+        return redirect(url_for('.index'))
     
     return render_template('register.html', form=form)
