@@ -1,6 +1,5 @@
-from cyclonejet import db
 import datetime
-
+from cyclonejet.extensions import db
 from werkzeug import generate_password_hash, check_password_hash
 
 from flaskext.sqlalchemy import BaseQuery

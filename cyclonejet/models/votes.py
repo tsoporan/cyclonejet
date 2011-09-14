@@ -1,5 +1,4 @@
-from cyclonejet import db
-
+from cyclonejet.extensions import db
 from cyclonejet.models.users import User
 from cyclonejet.models.anime import Anime
 

@@ -1,6 +1,5 @@
-from cyclonejet import db
 import datetime
-
+from cyclonejet.extensions import db
 from cyclonejet.models.users import User
 
 class Anime(db.Model):

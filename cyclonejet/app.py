@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from cyclonejet.views.frontend import frontend
 from cyclonejet.extensions import db
 
+from cyclonejet.models import User, Anime
+
 from cyclonejet.config import Config
 
 def create_app():
@@ -12,7 +14,6 @@ def create_app():
     app.register_blueprint(frontend)
 
     #DB intialization
-    db.app = app
     db.init_app(app)
 
     #Custom Error handling (move this somewhere else?)

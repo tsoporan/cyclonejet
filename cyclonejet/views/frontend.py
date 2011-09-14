@@ -2,6 +2,7 @@
 from flask import Blueprint, url_for, redirect, flash, request, render_template
 
 from cyclonejet.forms import RegistrationForm
+from cyclonejet.extensions import db
 
 frontend = Blueprint('frontend', __name__)
 
