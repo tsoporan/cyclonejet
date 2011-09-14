@@ -4,6 +4,7 @@ Flask-Admin
 Flask-Actions
 Flask-Auth
 Flask-Redis
+Flask-Script
 Flask-SQLAlchemy
 Flask-WTF
 Scrapy
