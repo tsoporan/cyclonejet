@@ -5,6 +5,7 @@ from flask import current_app
 from flaskext.script import Manager
 from cyclonejet import create_app
 from cyclonejet.extensions import db
+from cyclonejet.models import User, Anime
 
 app = create_app()
 manager = Manager(app)
@@ -17,6 +18,16 @@ def create_db():
 def drop_db():
     db.drop_all()
 
+
+#prefill our shell with some defaults
+@manager.shell
+def make_shell_context():
+    return dict(
+        app=current_app, 
+        db=db,
+        User=User,
+        Anime=Anime,
+    )
 
 if __name__ == "__main__":
     manager.run()
