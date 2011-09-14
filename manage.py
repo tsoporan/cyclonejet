@@ -7,7 +7,7 @@ from cyclonejet import create_app
 from cyclonejet.extensions import db
 from cyclonejet.models import User, Anime
 
-app = create_app()
+app = create_app('cyclonejet')
 manager = Manager(app)
 
 @manager.command
