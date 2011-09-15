@@ -49,10 +49,13 @@ class User(db.Model):
 
     profile = db.relationship('Profile', uselist=False, backref='user')
 
+    is_verified = db.Column(db.Boolean, default=False)
+
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.set_password(password)
+
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -68,6 +71,8 @@ class User(db.Model):
 
         self.set_password(new_password)
 
+    def send_mail(self, subject, message, from_email=False):
+        pass
 
     def join_group(self, group):
         self.groups.append(group)
