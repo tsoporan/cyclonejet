@@ -1,7 +1,11 @@
 cyclonejet
 ----------
 
+
 **This project is under development.**
+
+**Note:** the default branch is develop, while master is meant to be the
+"production-ready" code.
 
 cyclonejet aims to be a simple and clutter-free anime discovery site
 utilizing supervised learning techniques to provide useful anime recommendations to users. 
