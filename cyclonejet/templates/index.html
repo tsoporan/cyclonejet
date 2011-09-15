@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% for m in get_flashed_messages() %} {{ m }} {% endfor %}
+
 <h1>Someone should code something ... >.></h1>
 
 {% endblock %}
