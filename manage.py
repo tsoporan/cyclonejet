@@ -18,6 +18,45 @@ def create_db():
 def drop_db():
     db.drop_all()
 
+@manager.command
+def populate_anime(fp):
+    """ Populate the Anime database from json. """
+
+    import os
+    assert os.path.exists(fp), "That file path doesn't seem to exist."
+
+    try:
+        import simplejson
+        animes = simplejson.load(open(fp))
+    except: #this needs to be json
+        raise
+
+    user = User.query_class.create_user(
+            username='cyclonejet',
+            email='jet@cyclonejet.com',
+            password='changeme'
+    )
+
+    for a in animes:
+        anime = Anime(
+            title = a['title'],
+            description = a['description'],
+        )
+        anime.user = user
+        db.session.add(anime)
+        
+        try:
+            db.session.commit()
+        except Exception, e: #these are most-likely dupes
+            print(e.message)
+            db.session.rollback()
+
+        print('Added anime: {}'.format(anime.title))
+
+    print('All done!')
+
+
+
 
 #prefill our shell with some defaults
 @manager.shell
