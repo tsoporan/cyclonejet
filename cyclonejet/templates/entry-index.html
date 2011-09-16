@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}anime{% endblock %}
+
+{% block content %}
+
+{% for m in get_flashed_messages() %} {{ m }} {% endfor %}
+
+{% include 'parts/pagination.html' %}
+
+{% for entry in entries %}
+    <p>{{ entry.title }} - {{ entry.description }}</p>
+{% endfor %}
+
+{% include 'parts/pagination.html' %}
+
+{% endblock %}
