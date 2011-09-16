@@ -14,7 +14,7 @@ def login_required(f):
         if session['logged_in'] is None:
             return redirect(url_for('.login'))
         return f(*args, **kwargs)
-    return decorated_funtion
+    return decorated_function
 
 @frontend.route('/')
 def index():
