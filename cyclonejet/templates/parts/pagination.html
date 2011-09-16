@@ -1,0 +1,39 @@
+<p>
+    {% if current_page - 5 < 1 %}
+
+        {% if current_page == 1 %}
+            <span>Prev</span>
+        {% else %}
+            <a href="?p={{ current_page - 1 }}">Prev</a>
+        {% endif %}
+
+        {% for page in range(1,11) %}
+            <a href="?p={{ page }}">{{ page }}</a>
+        {% endfor %}
+
+        <a href="?p={{ current_page + 1 }}">Next</a>
+
+    {% elif current_page + 5 > num_pages %}
+
+        <a href="?p={{ current_page - 1 }}">Prev</a>
+
+        {% for page in range(num_pages-9, num_pages+1) %}
+            <a href="?p={{ page }}">{{ page }}</a>
+        {% endfor %}
+
+        {% if current_page == num_pages %}
+            <span>Next</span>
+        {% else %}
+            <a href="?p={{ current_page + 1 }}">Next</a>
+        {% endif %}
+
+    {% else %}
+
+        <a href="?p={{ current_page - 1 }}">Prev </a>
+        {% for page in range(current_page - 5, current_page + 5) %}
+            <a href="?p={{ page }}">{{ page }}</a>
+        {% endfor %}
+        <a href="?p={{ current_page + 1 }}">Next</a>
+
+    {% endif %}
+</p>
