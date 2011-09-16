@@ -2,7 +2,7 @@
 # -*- encoding:utf-8 -*-
 
 from flask import current_app
-from flaskext.script import Manager
+from flaskext.script import Manager, prompt_bool
 from cyclonejet import create_app
 from cyclonejet.extensions import db
 from cyclonejet.models import User, Anime, Manga
@@ -16,7 +16,8 @@ def create_db():
 
 @manager.command
 def drop_db():
-    db.drop_all()
+    if prompt_bool('Are you sure you want to destroy all your data?'):
+        db.drop_all()
 
 def import_json(fp, model_class):
 
