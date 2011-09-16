@@ -43,9 +43,6 @@ def login():
 
 @frontend.route('/logout')
 def logout():
-    # clean-up all session variables (dunno if there'll be a case where we want some items stored)
-    for item in session.iteritems():
-        session[item] = None
-
+    session.pop('logged_in', None)
     flash("You've been logged out, see ya")
     return render_template('index.html')
