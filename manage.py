@@ -55,7 +55,9 @@ def populate_anime(fp):
 
     print('All done!')
 
-
+@manager.command
+def populate_manga(fp):
+    pass
 
 
 #prefill our shell with some defaults

@@ -6,6 +6,9 @@
 from scrapy.item import Item, Field
 
 class MangareaderItem(Item):
-    # define the fields for your item here like:
-    # name = Field()
-    pass
+    title = Field()
+    link = Field()
+    description = Field()
+    year = Field()
+    genres = Field()
+    author = Field()
