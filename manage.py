@@ -41,22 +41,24 @@ def import_json(fp, model_class):
         # this could be cleaned up a bit once we have the mangareader
         # spider returning cleaner data - @scjudd
 
-        if model_class.__name__ == 'Manga':
-            try:
-                description = e['description'][0],
-            except IndexError:
-                description = e['description'],
+        for i in e.iterkeys():
+            if type(e[i]).__name__ in ['list','tuple']:
+                try:
+                    e[i] = e[i][0]
+                except IndexError:
+                    e[i] = ''
 
+        if model_class.__name__ == 'Manga':
             entry = model_class(
                 title = e['title'],
-                description = description,
+                description = e['description'],
                 year = e['year'],
-                author = e['author']
+                author = e['author'],
             )
         elif model_class.__name__ == 'Anime':
             entry = model_class(
                 title = e['title'],
-                description = e['description']
+                description = e['description'],
             )
         else:
             raise
