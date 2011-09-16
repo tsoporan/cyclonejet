@@ -1,4 +1,5 @@
 # -*- encoding:utf-8 -*-
+from functools import wraps
 from flask import Blueprint, url_for, redirect, flash, session, request, render_template
 
 from cyclonejet.forms import RegistrationForm, LoginForm
@@ -6,6 +7,14 @@ from cyclonejet.models.users import User
 from cyclonejet.extensions import db
 
 frontend = Blueprint('frontend', __name__)
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session['logged_in'] is None:
+            return redirect(url_for('.login'))
+        return f(*args, **kwargs)
+    return decorated_funtion
 
 @frontend.route('/')
 def index():
