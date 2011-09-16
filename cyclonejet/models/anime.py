@@ -11,7 +11,9 @@ class Anime(db.Model):
     title = db.Column(db.Unicode(250), unique=True)
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     description = db.Column(db.UnicodeText)
-    #link is foreignkey
+   
+    #genres ?
+    #type? (series,ova,movie)
 
     uploader_id = db.Column(db.Integer, db.ForeignKey(User.id))
     uploader = db.relationship(User, backref='animes')
@@ -24,4 +26,6 @@ class Anime(db.Model):
     def __repr__(self):
         return '<Anime: %r>' % self.title
 
+#class Episode(db.Model):
+# many episodes -> one anime
 
