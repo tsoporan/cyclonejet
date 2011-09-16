@@ -40,3 +40,12 @@ def login():
             return redirect(url_for('.index'))
 
     return render_template('login.html', form=form)
+
+@frontend.route('/logout')
+def logout():
+    # clean-up all session variables (dunno if there'll be a case where we want some items stored)
+    for item in session.iteritems():
+        session[item] = None
+
+    flash("You've been logged out, see ya")
+    return render_template('index.html')
