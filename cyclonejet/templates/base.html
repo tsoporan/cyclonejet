@@ -25,6 +25,11 @@
 <body>
     <div id="container">		
         <header>
+            {% if session['logged_in'] %}
+                <p>Welcome {{ session['username'] }}! <a href="{{ url_for('frontend.logout') }}">Logout</a>?</p>
+            {% else %}
+                <p><a href="{{ url_for('frontend.login') }}">Login</a></p>
+            {% endif %}
             <nav>
                 <ul>
                     <li><a href=""></a></li>	

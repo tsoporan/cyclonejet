@@ -5,21 +5,19 @@
 {% block content %}
 
     <form method="post" action="">
-    {% for field in form %}
+        {% for field in form %}
 
-        {% if field.name == 'csrf' %}
-            {# do nothing i.e don't display this label #}
-        {% else %}
-            {{ field.label }}
-        {% endif %}
-        
-        {{ field }}
-        
-        {% if field.errors %}
-            <ul class='errors'>
-                {% for error in field.errors %}<li>{{ error }}{% endfor %}
-            </ul>
-        {% endif %}
+            {% if field.name != 'csrf' %}
+                {{ field.label }}
+            {% endif %}
+            
+            {{ field }}
+            
+            {% if field.errors %}
+                <ul class='errors'>
+                    {% for error in field.errors %}<li>{{ error }}{% endfor %}
+                </ul>
+            {% endif %}
 
         {% endfor %}
         <input type="submit" value="Login">

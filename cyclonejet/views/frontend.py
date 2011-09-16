@@ -36,6 +36,7 @@ def login():
         else:
             flash("You've been logged in")
             session['uid'] = user.id
+            session['username'] = user.username
             session['logged_in'] = True
             return redirect(url_for('.index'))
 
