@@ -1,7 +1,6 @@
 from flask import Blueprint, url_for, redirect, flash, session, request, render_template
 from cyclonejet.forms import RegistrationForm, LoginForm
 from cyclonejet.models.users import User
-from cyclonejet.extensions import db
 
 from cyclonejet.views.utils import login_required
 
@@ -12,8 +11,19 @@ def register():
     form = RegistrationForm(request.form)
 
     if request.method == 'POST' and form.validate():
-        User.query_class.create_user(form.username.data, form.email.data, form.password.data)
-        flash('Workiez')
+        user = User.query_class.create_user(
+                username = form.username.data,
+                email= form.email.data,
+                password = form.password.data
+        )
+        # send verification email
+        user.send_mail(
+            subject = "[cyclonejet] You've just signed up!",
+            message = """Thank you for registering to cyclonejet [verification link here]"""
+        )
+
+        flash("%s registered successfully!" % user.username)
+        
         return redirect(url_for('.index'))
     
     return render_template('register.html', form=form)

@@ -1,8 +1,10 @@
 import datetime
-from cyclonejet.extensions import db
+from cyclonejet.extensions import db, mail
+
 from werkzeug import generate_password_hash, check_password_hash
 
 from flaskext.sqlalchemy import BaseQuery
+from flaskext.mail import Message
 
 groups = db.Table('groups', 
         db.Column('group_id', db.Integer, db.ForeignKey('group.id')),
@@ -71,8 +73,14 @@ class User(db.Model):
 
         self.set_password(new_password)
 
-    def send_mail(self, subject, message, from_email=False):
-        pass
+    def send_mail(self, subject, message):
+        msg = Message(
+            subject,
+            recipients = [self.email],
+            body = message,
+            #sender is DEFAULT_MAIL_SENDER
+        )
+        mail.send(msg)
 
     def join_group(self, group):
         self.groups.append(group)
