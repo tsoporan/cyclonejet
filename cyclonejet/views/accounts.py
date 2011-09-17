@@ -1,12 +1,12 @@
-from flask import Blueprint, url_for, redirect, flash, session, request, render_template
+from flask import Blueprint, url_for, redirect, flash, request, render_template
 from cyclonejet.forms import RegistrationForm, LoginForm
 from cyclonejet.models.users import User
 
-from cyclonejet.views.utils import login_required
+from cyclonejet.views.utils import login_required, login_user, logout_user
 
 accounts = Blueprint('accounts', __name__)
 
-@accounts.route('/register', methods=['GET', 'POST'])
+@accounts.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
 
@@ -22,13 +22,15 @@ def register():
             message = """Thank you for registering to cyclonejet [verification link here]"""
         )
 
+        #log user in automatically
+        login_user(user)
+
         flash("%s registered successfully!" % user.username)
-        
-        return redirect(url_for('.index'))
+        return redirect(url_for('accounts.profile'))
     
     return render_template('register.html', form=form)
 
-@accounts.route('/login', methods=['GET', 'POST'])
+@accounts.route('/login/', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
 
@@ -41,18 +43,17 @@ def login():
             flash('Incorrect password')
         else:
             flash("You've been logged in")
-            session['uid'] = user.id
-            session['username'] = user.username
-            session['logged_in'] = True
-            return redirect(url_for('.index'))
+            login_user(user)
+            return redirect(url_for('accounts.profile'))
 
     return render_template('login.html', form=form)
 
-@accounts.route('/logout')
+@accounts.route('/logout/')
+@login_required
 def logout():
-    session.pop('logged_in', None)
+    logout_user()
     flash("You've been logged out, see ya")
-    return redirect(url_for('.index'))
+    return redirect(url_for('frontend.index'))
 
 
 @accounts.route('/profile')

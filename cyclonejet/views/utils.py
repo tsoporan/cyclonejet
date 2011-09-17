@@ -9,4 +9,10 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def login_user(user):
+    session['uid'] = user.id
+    session['username'] = user.username
+    session['logged_in'] = True
 
+def logout_user():
+    session.pop('logged_in', None)
