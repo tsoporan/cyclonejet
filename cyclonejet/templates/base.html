@@ -41,8 +41,14 @@
         </header>	
 
         <div id="main" role="main">
-            {% block content %} 
-            {% endblock %}
+						{% block messages %} 
+						<ul class="messages">
+						{% for m in get_flashed_messages() %}<li>{{ m }}</li>{% endfor %}
+						</ul>
+						{% endblock %}
+					
+						{% block content %} 
+						{% endblock %}
         </div> <!-- end main content -->
 		
         <footer>
