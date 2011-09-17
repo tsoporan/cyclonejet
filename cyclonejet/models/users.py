@@ -108,8 +108,11 @@ class Profile(db.Model):
 
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
+    def __init__(self, user):
+        self.user_id = user.id
+
     def __repr__(self):
-        return '<Profile: %r>' % self.user
+        return '<Profile: %r>' % self.user.username
 
 
 class Group(db.Model):
