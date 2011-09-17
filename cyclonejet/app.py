@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from cyclonejet.views.frontend import frontend
 from cyclonejet.views.anime import anime
 from cyclonejet.views.manga import manga
+from cyclonejet.views.accounts import accounts
 from cyclonejet.extensions import db
 
 from cyclonejet.config import Config
@@ -13,6 +14,7 @@ def create_app(name):
 
     #Blueprint registration
     app.register_blueprint(frontend)
+    app.register_blueprint(accounts)
     app.register_blueprint(anime, url_prefix='/anime')
     app.register_blueprint(manga, url_prefix='/manga')
 
