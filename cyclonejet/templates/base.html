@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     {% block css %}
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="/static/css/style.css">
     {% endblock %}
 
     {% block js %}
@@ -22,9 +22,11 @@
     {% endblock %}
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <div id="container">		
-        <header>
+				<header>
+						<h1><a href="">cyclonejet</a></h1>
+
             {% if session['logged_in'] %}
                 <p>Welcome {{ session['username'] }}! <a href="{{ url_for('accounts.logout') }}">Logout</a>?</p>
             {% else %}
@@ -32,9 +34,9 @@
             {% endif %}
             <nav>
                 <ul>
-										<li><a href="{{ url_for('frontend.index') }}">home</a></li>	
-										<li><a href="{{ url_for('anime.index') }}">anime</a></li>	
-										<li><a href="{{ url_for('manga.index') }}">manga</a></li>	
+										<li><a class="home" href="{{ url_for('frontend.index') }}">home</a></li>	
+										<li><a class="anime" href="{{ url_for('anime.index') }}">anime</a></li>	
+										<li><a class="manga" href="{{ url_for('manga.index') }}">manga</a></li>	
                 </ul>
             </nav> <!-- end main nav -->
         </header>	
