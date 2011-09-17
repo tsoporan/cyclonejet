@@ -32,10 +32,9 @@
             {% endif %}
             <nav>
                 <ul>
-                    <li><a href=""></a></li>	
-                    <li><a href=""></a></li>	
-                    <li><a href=""></a></li>	
-                    <li><a href=""></a></li>	
+										<li><a href="{{ url_for('frontend.index') }}">home</a></li>	
+										<li><a href="{{ url_for('anime.index') }}">anime</a></li>	
+										<li><a href="{{ url_for('manga.index') }}">manga</a></li>	
                 </ul>
             </nav> <!-- end main nav -->
         </header>	
