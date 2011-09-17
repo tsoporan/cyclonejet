@@ -28,7 +28,7 @@
             {% if session['logged_in'] %}
                 <p>Welcome {{ session['username'] }}! <a href="{{ url_for('frontend.logout') }}">Logout</a>?</p>
             {% else %}
-                <p><a href="{{ url_for('frontend.login') }}">Login</a></p>
+                <p><a href="{{ url_for('frontend.login') }}">Login</a> or <a href="{{ url_for('frontend.register') }}">Register</a></p>
             {% endif %}
             <nav>
                 <ul>

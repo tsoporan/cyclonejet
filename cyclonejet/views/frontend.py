@@ -55,7 +55,7 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash("You've been logged out, see ya")
-    return render_template('index.html')
+    return redirect(url_for('.index'))
 
 
 @frontend.route('/profile')
