@@ -11,6 +11,25 @@ app = create_app('cyclonejet')
 manager = Manager(app)
 
 @manager.command
+def create_user(username, email, password):
+    """
+    Will create a user from supplied cli arguments.
+    Since 'create_user' knows to check for an existing user first
+    this will not create more than one of the same users.
+    """
+   
+    try:
+        user = User.query_class.create_user(
+            username=username,
+            email=email,
+            password=password,
+        )
+        print('Created (or existing) user: %s' % user.username)
+    except Exception, e:
+        print(e)
+
+
+@manager.command
 def create_db():
     db.create_all()
 
