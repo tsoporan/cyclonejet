@@ -5,7 +5,7 @@ from flask import current_app
 from flaskext.script import Manager, prompt_bool
 from cyclonejet import create_app
 from cyclonejet.extensions import db
-from cyclonejet.models import User, Anime, Manga
+from cyclonejet.models import User, Profile, Anime, Manga
 
 app = create_app('cyclonejet')
 manager = Manager(app)
@@ -118,7 +118,9 @@ def make_shell_context():
         app=current_app, 
         db=db,
         User=User,
+        Profile=Profile,
         Anime=Anime,
+        Manga=Manga,
     )
 
 if __name__ == "__main__":
