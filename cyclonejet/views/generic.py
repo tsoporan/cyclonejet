@@ -10,37 +10,44 @@ class ListView(View):
     def render_template(self, context):
         return render_template(self.template_name, **context) #unpack context
     
-    def get_objects(self):
+    def get_context(self):
+        """Should return a dictionary."""
         raise NotImplementedError()
 
     def dispatch_request(self):
         context = {}
-        context.update(self.get_objects())
+        context.update(self.get_context())
         return self.render_template(context)
 
+
 class PaginatedListView(ListView):
+    
     methods = ['GET']
 
-    PAGINATE_PER_PAGE = 25
-
-    def __init__(self, model, template_name):
-        self.CLS = model
+    def __init__(self, model, template_name, paginate_by=25):
+        self.model = model
         self.template_name = template_name
+        self.paginate_by = paginate_by
 
     def paginate(self):
         
         page = int(request.args.get('p', 1))
         
-        obj_count = self.CLS.query.count()
-        num_pages = obj_count / self.PAGINATE_PER_PAGE
+        obj_count = self.model.query.count()
+        num_pages = obj_count / self.paginate_by
 
-        if obj_count % self.PAGINATE_PER_PAGE > 0:
+        if not obj_count: #we can't do anything without objects
+            return {
+                'error': "There are no '%s' in the database, make sure to add some." % self.model.__name__,
+            }
+
+        if obj_count % self.paginate_by > 0:
             num_pages += 1
 
         if page < 1 or page > num_pages:
             return abort(404)
        
-        objects = self.CLS.query.order_by('title').limit(self.PAGINATE_PER_PAGE).offset((page - 1) * self.PAGINATE_PER_PAGE)
+        objects = self.model.query.order_by('title').limit(self.paginate_by).offset((page - 1) * self.paginate_by)
 
         return {
             'entries' : objects,
@@ -48,6 +55,6 @@ class PaginatedListView(ListView):
             'num_pages' : num_pages,
         }
         
-    def get_objects(self):
+    def get_context(self):
         return self.paginate()
         
