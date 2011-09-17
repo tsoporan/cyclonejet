@@ -3,7 +3,9 @@ from cyclonejet.views.frontend import frontend
 from cyclonejet.views.anime import anime
 from cyclonejet.views.manga import manga
 from cyclonejet.views.accounts import accounts
+
 from cyclonejet.extensions import db
+from cyclonejet.extensions import mail
 
 from cyclonejet.config import Config
 
@@ -20,6 +22,9 @@ def create_app(name):
 
     #DB intialization
     db.init_app(app)
+    
+    #Mail initialization
+    mail.init_app(app)
 
     #Custom Error handling (move this somewhere else?)
     @app.errorhandler(404)
