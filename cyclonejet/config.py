@@ -12,3 +12,13 @@ class Config(object):
     #WTForms Settings
     CSRF_ENABLED = True
     CSRF_SESSION_KEY = '_csrf_token'
+
+    #Flask Mail settings
+    MAIL_SERVER = 'localhost' 
+    MAIL_PORT =  25
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = False
+    MAIL_DEBUG = DEBUG
+    MAIL_USERNAME = None
+    MAIL_PASSWORD = None
+    DEFAULT_MAIL_SENDER = None
