@@ -11,7 +11,7 @@ frontend = Blueprint('frontend', __name__)
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session['logged_in'] is None:
+        if 'logged_in' not in session or session['logged_in'] is None:
             return redirect(url_for('.login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -56,3 +56,9 @@ def logout():
     session.pop('logged_in', None)
     flash("You've been logged out, see ya")
     return render_template('index.html')
+
+
+@frontend.route('/profile')
+@login_required
+def profile():
+    return 'Got to restricted page!'
