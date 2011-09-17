@@ -4,14 +4,18 @@
 
 {% block content %}
 
-{% for m in get_flashed_messages() %} {{ m }} {% endfor %}
+{% if error %}
 
-{% include 'parts/pagination.html' %}
+    <p><strong>{{ error }}</strong></p>
+    
+{% else %}
 
-{% for entry in entries %}
-    <p>{{ entry.title }} - {{ entry.description }}</p>
-{% endfor %}
-
-{% include 'parts/pagination.html' %}
+    {% for entry in entries %}
+        <p>{{ entry.title }} - {{ entry.description }}</p>
+    {% endfor %}
+    
+    {% include 'parts/pagination.html' %}
+    
+{% endif %}
 
 {% endblock %}
