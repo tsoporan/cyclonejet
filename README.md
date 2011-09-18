@@ -25,8 +25,11 @@ how to get started
 
 5. ```pip install -r requirements.txt```
 
-6. ```python2.7 manage.py runserver```
+6. Create the database and populate it with some initial content:
+
+    ```
+    python2.7 manage.py create_db
+    python2.7 manage.py populate_anime data/animes_initial.json
+    ```
 
 7. Work on whatever you want! Everything is still in a state of flux.
-
-herp derp
