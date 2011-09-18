@@ -82,7 +82,7 @@ def import_json(fp, model_class):
         else:
             raise
 
-        entry.user = user
+        entry.uploader = user
         db.session.add(entry)
 
         try:
