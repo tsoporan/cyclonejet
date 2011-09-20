@@ -17,3 +17,5 @@
 *.bak
 
 .scrapy
+
+*.swp
