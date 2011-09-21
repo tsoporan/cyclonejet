@@ -246,7 +246,7 @@ header nav ul li:first-child a {
     border-bottom-left-radius: 3px;
 }
 
-body.home a.home, body.anime a.anime, body.manga a.manga {
+body.home a.home, body.anime-list a.anime, body.manga-list a.manga {
     background: green;
 }
 
