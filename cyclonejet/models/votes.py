@@ -1,6 +1,7 @@
 from cyclonejet.extensions import db
 from cyclonejet.models.users import User
 from cyclonejet.models.anime import Anime
+from cyclonejet.models.manga import Manga
 
 class Vote(db.Model):
 
@@ -8,7 +9,7 @@ class Vote(db.Model):
     discriminator = db.Column('type', db.String(50))
     __mapper_args__ = {'polymorphic_on': discriminator}
 
-    score = db.Column('score', db.Integer)
+    score = db.Column('score', db.Float)
 
     user_id = db.Column('user_id', db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User, backref='votes')
@@ -29,4 +30,15 @@ class AnimeVote(Vote):
     def __init__(self, score, user, anime):
         super(AnimeVote, self).__init__(score, user)
         self.anime = anime
+
+class MangaVote(Vote):
+    __mapper_args__ = {'polymorphic_identity': 'mangavote'}
+
+    manga_id = db.Column(db.Integer, db.ForeignKey(Manga.id))
+    manga = db.relationship(Manga, backref='votes')
+
+    def __init__(self, score, user, manga):
+        super(MangaVote, self).__init__(score, user)
+        self.manga = manga
+
 
