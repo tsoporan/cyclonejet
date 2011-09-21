@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Anime List{% endblock %}
+{% block title %}Manga List{% endblock %}
 
-{% block body_class %}anime-list{% endblock %}
+{% block body_class %}manga-list{% endblock %}
 
 {% block content %}
 
@@ -13,7 +13,7 @@
 {% else %}
 
     {% for entry in entries %}
-    <p><a href="{{ url_for('anime.detail', anime_id=entry.id) }}">{{ entry.title }}</a> - {{ entry.description }}</p>
+        <p><a href="{{ url_for('manga.detail', manga_id=entry.id) }}">{{ entry.title }}</a> - {{ entry.description }}</p>
     {% endfor %}
     
     {% include 'parts/pagination.html' %}

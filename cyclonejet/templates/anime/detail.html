@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ anime.title }} {% endblock %}
+
+{% block body_class %}anime-detail{% endblock %}
+
+{% block content %}
+
+<h2>{{ anime.title }}</h2>
+
+<p>{{ anime.description }}</p>
+
+{% endblock %}
