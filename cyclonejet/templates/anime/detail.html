@@ -4,10 +4,51 @@
 
 {% block body_class %}anime-detail{% endblock %}
 
+{% block css %}
+    {{ super() }}
+    <link rel='stylesheet' href='/static/css/jquery.rating.css'>
+{% endblock %}
+
 {% block content %}
 
 <h2>{{ anime.title }}</h2>
 
+<a href="" class="testvote">Test Vote</a>
+
 <p>{{ anime.description }}</p>
+
+{% endblock %}
+
+{% block extra %}
+{{ super() }}
+<script src="/static/js/jquery.rating.js"></script>
+
+<script>
+    $(document).ready(function() {
+    
+    // when intial load we need an ajax function
+    // that checks for the current users vote for current anime
+    // if that exists preload the rating (presumably 5 stars)
+    // else show them the average of all votes thus far
+        
+    $('.testvote').click(function() {
+        
+         $.ajax({
+            type: 'POST',
+            url: '/anime/{{ anime.id }}/vote/',
+            data: {
+                score: '4.5' // this needs to be a dynamic 1.0-5.0 val stepping by .5
+            },
+            success: function(data) {
+                if (data.success)
+                    alert('Thanks for the vote! You voted: ' + data.score)
+            }
+        
+        });
+        return false;
+    }); 
+        
+    });
+</script>
 
 {% endblock %}
