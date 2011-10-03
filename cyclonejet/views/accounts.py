@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, redirect, flash, request, render_template
+from flask import Blueprint, url_for, redirect, flash, request, render_template, session
 from cyclonejet.forms import RegistrationForm, LoginForm
 from cyclonejet.models.users import User
 
@@ -55,8 +55,8 @@ def logout():
     flash("You've been logged out, see ya")
     return redirect(url_for('frontend.index'))
 
-
-@accounts.route('/profile')
+@accounts.route('/profile/')
 @login_required
 def profile():
-    return 'Got to restricted page!'
+    user = User.query.get(session['uid'])
+    return render_template('profile.html', user=user)
